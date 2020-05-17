@@ -10,7 +10,7 @@ class IssueFilter extends React.Component {
 
 const IssueRow = props => (
     <tr>
-        <td>{props.issue.id}</td>
+        <td>{props.issue._id}</td>
         <td>{props.issue.status}</td>
         <td>{props.issue.owner}</td>
         <td>{props.issue.created.toDateString()}</td>

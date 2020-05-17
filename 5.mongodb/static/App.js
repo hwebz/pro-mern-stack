@@ -40,7 +40,7 @@ var IssueRow = function IssueRow(props) {
         React.createElement(
             'td',
             null,
-            props.issue.id
+            props.issue._id
         ),
         React.createElement(
             'td',
