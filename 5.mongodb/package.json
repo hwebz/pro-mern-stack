@@ -6,12 +6,14 @@
   "scripts": {
     "start": "concurrently 'nodemon -w server.js server.js' 'npm run watch'",
     "compile": "node_modules/.bin/babel src --presets react,es2015 --out-dir static",
-    "watch": "node_modules/.bin/babel src --presets react,es2015 --out-dir static -watch"
+    "watch": "node_modules/.bin/babel src --presets react,es2015 --out-dir static -watch",
+    "migrate": "mongo scripts/init.mongo.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^3.5.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

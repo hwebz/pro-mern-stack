@@ -1,0 +1,19 @@
+{
+  "name": "5.1.mongotest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "callbacks": "node trymongo.js callbacks",
+    "promises": "node trymongo.js promises",
+    "generator": "node trymongo.js generator",
+    "async": "node trymongo.js async"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "co": "^4.6.0",
+    "mongodb": "^3.5.7"
+  }
+}

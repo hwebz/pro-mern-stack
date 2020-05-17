@@ -1,9 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
+
 const app = express();
 
 app.use(express.static('static'));
 app.use(bodyParser.json());
+
+MongoClient.connect('mongodb://localhost', { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+    if (err) throw err;
+    const db = client.db('issuetracker');
+
+    db.collection('issues').find().toArray((err, docs) => {
+        console.log(`Result of find: `, docs);
+        client.close();
+    })
+})
 
 const issues = [
     {
