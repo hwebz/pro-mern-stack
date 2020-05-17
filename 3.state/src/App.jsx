@@ -8,22 +8,17 @@ class IssueFilter extends React.Component {
     }
 }
 
-class IssueRow extends React.Component {
-    render() {
-        const issue = this.props.issue;
-        return (
-            <tr>
-                <td>{issue.id}</td>
-                <td>{issue.status}</td>
-                <td>{issue.owner}</td>
-                <td>{issue.created.toDateString()}</td>
-                <td>{issue.effort}</td>
-                <td>{issue.completionDate ? issue.completionDate.toDateString() : ''}</td>
-                <td>{issue.title}</td>
-            </tr>
-        );
-    }
-}
+const IssueRow = props => (
+    <tr>
+        <td>{props.issue.id}</td>
+        <td>{props.issue.status}</td>
+        <td>{props.issue.owner}</td>
+        <td>{props.issue.created.toDateString()}</td>
+        <td>{props.issue.effort}</td>
+        <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
+        <td>{props.issue.title}</td>
+    </tr>
+)
 
 class IssueTable extends React.Component {
     render() {
@@ -50,9 +45,34 @@ class IssueTable extends React.Component {
 }
 
 class IssueAdd extends React.Component {
+
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const form = document.forms.issueAdd;
+        this.props.createIssue({
+            owner: form.owner.value,
+            title: form.title.value,
+            status:  'New',
+            created: new  Date()
+        })
+        form.owner.value = '';
+        form.title.value = '';
+    }
+
     render() {
         return (
-            <div>This is a placeholder for an Issue Add entry form.</div>
+            <div>
+                <form name="issueAdd" onSubmit={this.handleSubmit}>
+                    <input type="text" name="owner" placeholder="Owner" />
+                    <input type="text" name="title" placeholder="Title" />
+                    <button type="submit">Add</button>
+                </form>
+            </div>
         );
     }
 }
@@ -63,29 +83,43 @@ class IssueList extends React.Component {
         super();
 
         this.state = {
-            issues: [
-                {
-                    id: 1,
-                    status: 'Open',
-                    owner: 'Ravan',
-                    created: new Date('2016-08-15'),
-                    effort: 5,
-                    completionDate: undefined,
-                    title: 'Error in console when clicking Add'
-                },
-                {
-                    id: 2,
-                    status: 'Assigned',
-                    owner: 'Eddie',
-                    created: new Date('2016-08-16'),
-                    effort: 14,
-                    completionDate: new Date('2016-08-30'),
-                    title: 'Missing bottom border on panel'
-                }
-            ]
+            issues: []
         }
 
-        setTimeout(this.createTestIssue.bind(this), 2000);
+        // this.createTestIssue = this.createTestIssue.bind(this);
+        // setTimeout(this.createTestIssue, 2000);
+        this.createIssue = this.createIssue.bind(this);
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    loadData() {
+        setTimeout(() => {
+            this.setState({
+                issues: [
+                    {
+                        id: 1,
+                        status: 'Open',
+                        owner: 'Ravan',
+                        created: new Date('2016-08-15'),
+                        effort: 5,
+                        completionDate: undefined,
+                        title: 'Error in console when clicking Add'
+                    },
+                    {
+                        id: 2,
+                        status: 'Assigned',
+                        owner: 'Eddie',
+                        created: new Date('2016-08-16'),
+                        effort: 14,
+                        completionDate: new Date('2016-08-30'),
+                        title: 'Missing bottom border on panel'
+                    }
+                ]
+            })
+        }, 500);
     }
 
     createIssue(newIssue) {
@@ -114,7 +148,7 @@ class IssueList extends React.Component {
                 <hr />
                 <IssueTable issues={this.state.issues} />
                 <hr />
-                <IssueAdd />
+                <IssueAdd createIssue={this.createIssue} />
             </div>
         );
     }
