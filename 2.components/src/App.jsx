@@ -9,6 +9,19 @@ class IssueFilter extends React.Component {
 }
 
 class IssueRow extends React.Component {
+    static get propTypes() {
+        return {
+            issue_id: React.PropTypes.number.isRequired,
+            issue_title: React.PropTypes.string
+        }
+    }
+
+    static get defaultProps() {
+        return {
+            issue_id: 9999,
+            issue_title: '$ no title $'
+        }
+    }
     render() {
         const borderedStyle = { border: "1px solid silver", padding: 4};
         return (
@@ -20,10 +33,10 @@ class IssueRow extends React.Component {
     }
 }
 
-IssueRow.propTypes = {
-    issue_id: React.PropTypes.number.isRequired,
-    issue_title: React.PropTypes.string
-};
+// IssueRow.propTypes = {
+//     issue_id: React.PropTypes.number.isRequired,
+//     issue_title: React.PropTypes.string
+// };
 
 class IssueTable extends React.Component {
     render() {
@@ -39,11 +52,23 @@ class IssueTable extends React.Component {
                 <tbody>
                     <IssueRow issue_id={1} issue_title="Error in console when clicking Add" />
                     <IssueRow issue_id={2} issue_title="Missing bottom border on panel" />
+                    <IssueRow />
                 </tbody>
             </table>
         );
     }
 }
+
+// class BorderWrap extends React.Component {
+//     render() {
+//         const borderedStyle =  { border: "1px solid silver", padding: 6 };
+//         return (
+//             <div style={borderedStyle}>
+//                 {this.props.children}
+//             </div>
+//         );
+//     }
+// }
 
 class IssueAdd extends React.Component {
     render() {

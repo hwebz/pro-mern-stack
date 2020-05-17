@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20,12 +20,12 @@ var IssueFilter = function (_React$Component) {
     }
 
     _createClass(IssueFilter, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "div",
+                'div',
                 null,
-                "This is a placeholder for the Issue Filter."
+                'This is a placeholder for the Issue Filter.'
             );
         }
     }]);
@@ -43,33 +43,49 @@ var IssueRow = function (_React$Component2) {
     }
 
     _createClass(IssueRow, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var borderedStyle = { border: "1px solid silver", padding: 4 };
             return React.createElement(
-                "tr",
+                'tr',
                 null,
                 React.createElement(
-                    "td",
+                    'td',
                     { style: borderedStyle },
                     this.props.issue_id
                 ),
                 React.createElement(
-                    "td",
+                    'td',
                     { style: borderedStyle },
                     this.props.issue_title
                 )
             );
+        }
+    }], [{
+        key: 'propTypes',
+        get: function get() {
+            return {
+                issue_id: React.PropTypes.number.isRequired,
+                issue_title: React.PropTypes.string
+            };
+        }
+    }, {
+        key: 'defaultProps',
+        get: function get() {
+            return {
+                issue_id: 9999,
+                issue_title: '$ no title $'
+            };
         }
     }]);
 
     return IssueRow;
 }(React.Component);
 
-IssueRow.propTypes = {
-    issue_id: React.PropTypes.number.isRequired,
-    issue_title: React.PropTypes.string
-};
+// IssueRow.propTypes = {
+//     issue_id: React.PropTypes.number.isRequired,
+//     issue_title: React.PropTypes.string
+// };
 
 var IssueTable = function (_React$Component3) {
     _inherits(IssueTable, _React$Component3);
@@ -81,35 +97,36 @@ var IssueTable = function (_React$Component3) {
     }
 
     _createClass(IssueTable, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var borderedStyle = { border: "1px solid silver", padding: 6, borderCollapse: 'collapse' };
             return React.createElement(
-                "table",
+                'table',
                 { style: borderedStyle },
                 React.createElement(
-                    "thead",
+                    'thead',
                     null,
                     React.createElement(
-                        "tr",
+                        'tr',
                         null,
                         React.createElement(
-                            "th",
+                            'th',
                             { style: borderedStyle },
-                            "ID"
+                            'ID'
                         ),
                         React.createElement(
-                            "th",
+                            'th',
                             { style: borderedStyle },
-                            "Title"
+                            'Title'
                         )
                     )
                 ),
                 React.createElement(
-                    "tbody",
+                    'tbody',
                     null,
-                    React.createElement(IssueRow, { issue_id: 1, issue_title: "Error in console when clicking Add" }),
-                    React.createElement(IssueRow, { issue_id: 2, issue_title: "Missing bottom border on panel" })
+                    React.createElement(IssueRow, { issue_id: 1, issue_title: 'Error in console when clicking Add' }),
+                    React.createElement(IssueRow, { issue_id: 2, issue_title: 'Missing bottom border on panel' }),
+                    React.createElement(IssueRow, null)
                 )
             );
         }
@@ -117,6 +134,17 @@ var IssueTable = function (_React$Component3) {
 
     return IssueTable;
 }(React.Component);
+
+// class BorderWrap extends React.Component {
+//     render() {
+//         const borderedStyle =  { border: "1px solid silver", padding: 6 };
+//         return (
+//             <div style={borderedStyle}>
+//                 {this.props.children}
+//             </div>
+//         );
+//     }
+// }
 
 var IssueAdd = function (_React$Component4) {
     _inherits(IssueAdd, _React$Component4);
@@ -128,12 +156,12 @@ var IssueAdd = function (_React$Component4) {
     }
 
     _createClass(IssueAdd, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "div",
+                'div',
                 null,
-                "This is a placeholder for an Issue Add entry form."
+                'This is a placeholder for an Issue Add entry form.'
             );
         }
     }]);
@@ -151,20 +179,20 @@ var IssueList = function (_React$Component5) {
     }
 
     _createClass(IssueList, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             return React.createElement(
-                "div",
+                'div',
                 null,
                 React.createElement(
-                    "h1",
+                    'h1',
                     null,
-                    "Issue Tracker"
+                    'Issue Tracker'
                 ),
                 React.createElement(IssueFilter, null),
-                React.createElement("hr", null),
+                React.createElement('hr', null),
                 React.createElement(IssueTable, null),
-                React.createElement("hr", null),
+                React.createElement('hr', null),
                 React.createElement(IssueAdd, null)
             );
         }
