@@ -11,15 +11,13 @@ class IssueFilter extends React.Component {
 class IssueRow extends React.Component {
     static get propTypes() {
         return {
-            issue_id: React.PropTypes.number.isRequired,
-            issue_title: React.PropTypes.string
+            issue_id: React.PropTypes.number.isRequired
         }
     }
 
     static get defaultProps() {
         return {
-            issue_id: 9999,
-            issue_title: '$ no title $'
+            issue_id: 9999
         }
     }
     render() {
@@ -27,7 +25,7 @@ class IssueRow extends React.Component {
         return (
             <tr>
                 <td style={borderedStyle}>{this.props.issue_id}</td>
-                <td style={borderedStyle}>{this.props.issue_title}</td>
+                <td style={borderedStyle}>{this.props.children || '$ no title $'}</td>
             </tr>
         );
     }
@@ -50,8 +48,8 @@ class IssueTable extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <IssueRow issue_id={1} issue_title="Error in console when clicking Add" />
-                    <IssueRow issue_id={2} issue_title="Missing bottom border on panel" />
+                    <IssueRow issue_id={1}>Error in console when clicking Add</IssueRow>
+                    <IssueRow issue_id={2}>Missing bottom border on panel</IssueRow>
                     <IssueRow />
                 </tbody>
             </table>

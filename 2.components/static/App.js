@@ -57,7 +57,7 @@ var IssueRow = function (_React$Component2) {
                 React.createElement(
                     'td',
                     { style: borderedStyle },
-                    this.props.issue_title
+                    this.props.children || '$ no title $'
                 )
             );
         }
@@ -65,16 +65,14 @@ var IssueRow = function (_React$Component2) {
         key: 'propTypes',
         get: function get() {
             return {
-                issue_id: React.PropTypes.number.isRequired,
-                issue_title: React.PropTypes.string
+                issue_id: React.PropTypes.number.isRequired
             };
         }
     }, {
         key: 'defaultProps',
         get: function get() {
             return {
-                issue_id: 9999,
-                issue_title: '$ no title $'
+                issue_id: 9999
             };
         }
     }]);
@@ -124,8 +122,16 @@ var IssueTable = function (_React$Component3) {
                 React.createElement(
                     'tbody',
                     null,
-                    React.createElement(IssueRow, { issue_id: 1, issue_title: 'Error in console when clicking Add' }),
-                    React.createElement(IssueRow, { issue_id: 2, issue_title: 'Missing bottom border on panel' }),
+                    React.createElement(
+                        IssueRow,
+                        { issue_id: 1 },
+                        'Error in console when clicking Add'
+                    ),
+                    React.createElement(
+                        IssueRow,
+                        { issue_id: 2 },
+                        'Missing bottom border on panel'
+                    ),
                     React.createElement(IssueRow, null)
                 )
             );
