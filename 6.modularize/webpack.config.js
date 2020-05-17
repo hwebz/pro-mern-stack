@@ -1,10 +1,17 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src/App.jsx'),
+    mode: 'development',
+    entry: {
+        app: path.resolve(__dirname, 'src/App.jsx'),
+        vendor: ['react', 'react-dom', 'whatwg-fetch']
+    },
     output: {
         path: path.resolve(__dirname, 'static'),
-        filename: 'app.bundle.js'
+        chunkFilename: '[name].bundle.js',
+        filename: '[name].bundle.js',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -19,5 +26,28 @@ module.exports = {
                 }
             }
         ]
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    chunks: 'initial',
+                    name: 'vendor',
+                    test: 'vendor',
+                    enforce: true
+                },
+            }
+        }
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'static'),
+        compress: true,
+        port: 9000,
+        host: '0.0.0.0',
+        proxy: {
+            '/api/*': {
+                target: 'http://localhost:3000'
+            }
+        }
     }
 }
