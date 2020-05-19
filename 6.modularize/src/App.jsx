@@ -5,5 +5,5 @@ import IssueList from './IssueList.jsx';
 ReactDOM.render(<IssueList />, document.getElementById('contents'));
 
 if (module.hot) {
-    module.hot.accept();
+  module.hot.accept();
 }
