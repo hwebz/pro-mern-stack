@@ -3,8 +3,9 @@ const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
+    devtool: 'sourcemap',
     entry: {
-        app: path.resolve(__dirname, 'src/App.jsx'),
+        app: [path.resolve(__dirname, 'src/App.jsx')],
         vendor: ['react', 'react-dom', 'whatwg-fetch']
     },
     output: {
@@ -49,5 +50,6 @@ module.exports = {
                 target: 'http://localhost:3000'
             }
         }
-    }
+    },
+    plugins: []
 }

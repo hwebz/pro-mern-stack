@@ -1,0 +1,1 @@
+{"version":3,"sources":["../server/server_hook.js"],"names":["require","presets"],"mappings":";;AAAAA,OAAO,CAAC,gBAAD,CAAP,CAA0B;AACtBC,EAAAA,OAAO,EAAE,CAAC,YAAD;AADa,CAA1B;;AAIAD,OAAO,CAAC,aAAD,CAAP","sourcesContent":["require('babel-register')({\n    presets: ['@babel/env']\n})\n\nrequire('./server.js');"],"file":"server_hook.js"}

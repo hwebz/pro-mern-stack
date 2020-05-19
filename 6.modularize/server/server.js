@@ -1,7 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-const Issue = require('./issue.js');
+import 'babel-polyfill';
+import express from 'express';
+import bodyParser from 'body-parser';
+import { MongoClient } from 'mongodb';
+import Issue from './issue.js';
+
+import SourceMapSupport from 'source-map-support';
+SourceMapSupport.install();
 
 const app = express();
 
@@ -11,6 +15,19 @@ app.use(bodyParser.json());
 // MongoClient instance
 let client;
 let db;
+if (process.env.NODE_ENV !== 'production') {
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+
+    const config = require('../webpack.config');
+    config.entry.app.push('webpack-hot-middleware/client', 'webpack/hot/only-dev-server');
+    config.plugins.push(new webpack.HotModuleReplacementPlugin());
+
+    const bundler = webpack(config);
+    app.use(webpackDevMiddleware(bundler, { noInfo: true }));
+    app.use(webpackHotMiddleware(bundler, { log: console.log }));
+}
 
 app.get('/api/issues', (req, res) => {
     db.collection('issues').find().toArray().then(issues => {
