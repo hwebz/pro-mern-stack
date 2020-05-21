@@ -49,14 +49,31 @@ export default class IssueList extends React.Component {
     };
 
     this.createIssue = this.createIssue.bind(this);
+    this.setFilter = this.setFilter.bind(this);
   }
 
   componentDidMount() {
     this.loadData();
   }
 
+  componentDidUpdate(prevProps) {
+    const oldQuery = prevProps.location.search;
+    const newQuery = this.props.location.search;
+    if (oldQuery === newQuery) {
+      return;
+    }
+    this.loadData();
+  }
+
+  setFilter(search) {
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search
+    })
+  }
+
   loadData() {
-    fetch('/api/issues').then((response) => response.json()).then((data) => {
+    fetch(`/api/issues${this.props.location.search}`).then((response) => response.json()).then((data) => {
       console.log(`Total count of records: ${data._metadata.total_count}`);
       data.records.forEach((issue) => {
         issue.created = new Date(issue.created);
