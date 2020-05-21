@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 import IssueAdd from './IssueAdd.jsx';
 import IssueFilter from './IssueFilter.jsx';
@@ -65,7 +66,7 @@ export default class IssueList extends React.Component {
     this.loadData();
   }
 
-  setFilter(search) {
+  setFilter(search = '') {
     this.props.history.push({
       pathname: this.props.location.pathname,
       search
@@ -127,7 +128,7 @@ export default class IssueList extends React.Component {
     return (
       <div>
         <h1>Issue Tracker</h1>
-        <IssueFilter />
+        <IssueFilter setFilter={this.setFilter} />
         <hr />
         <IssueTable issues={this.state.issues} />
         <hr />
@@ -135,4 +136,9 @@ export default class IssueList extends React.Component {
       </div>
     );
   }
+}
+
+IssueList.propTypes = {
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
