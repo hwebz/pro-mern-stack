@@ -125,7 +125,7 @@ export default class IssueList extends React.Component {
   }
 
   render() {
-    const pairs = this.props.location.search.split('&')
+    const pairs = this.props.location.search.split('?')[1].split('&')
     const query = {}
     pairs.forEach((p, pIndex) => {
       const parts = p.split('=');

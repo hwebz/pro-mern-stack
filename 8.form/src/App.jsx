@@ -34,12 +34,14 @@ const RouteApp = () => (
       {/* Have to place exact attr for parent route */}
       <Route path="/">
         <App>
-          <Switch>
-            <Route path="/issues" exact component={IssueList} />
-            <Route path="/issues/:id" component={IssueEdit} />
-            <Route path="*" component={NoMatch} />
-          </Switch>
-          <Redirect from="/" to="/issues" />
+          <div>
+            <Switch>
+              <Redirect exact from="/" to="/issues" />
+              <Route path="/issues" exact component={IssueList} />
+              <Route path="/issues/:id" component={IssueEdit} />
+              <Route path="*" component={NoMatch} />
+            </Switch>
+          </div>
         </App>
       </Route>
     </Switch>

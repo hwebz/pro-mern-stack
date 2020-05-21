@@ -59,13 +59,17 @@ export default class IssueFilter extends React.Component {
     }
   }
 
-  applyFilter(e) {
-    e.preventDefault();
-    const newFilter = {};
+  applyFilter() {
+    let newFilter = {};
+    let query = '';
     if (this.state.status) newFilter.status = this.state.status;
     if (this.state.effort_gte) newFilter.effort_gte = this.state.effort_gte;
     if (this.state.effort_lte) newFilter.effort_lte = this.state.effort_lte;
-    this.props.setFilter(newFilter);
+    Object.keys(newFilter).forEach((f, fIndex) => {
+      query += `${fIndex === 0 ? '?' : '&'}${f}=${newFilter[f]
+      }`
+    })
+    this.props.setFilter(query);
   }
 
   clearFilter(e) {
