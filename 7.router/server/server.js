@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
@@ -74,6 +75,10 @@ app.post('/api/issues', (req, res) => {
       });
     });
 });
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('static/index.html'));
+})
 
 MongoClient.connect('mongodb://localhost', { useNewUrlParser: true, useUnifiedTopology: true }, (err, connection) => {
   if (err) throw err;

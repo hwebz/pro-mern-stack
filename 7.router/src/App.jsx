@@ -1,22 +1,49 @@
 import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Switch, Route, HashRouter, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Switch, Route, HashRouter, Router, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import IssueList from './IssueList.jsx';
 import IssueEdit from './IssueEdit.jsx';
 
 const NoMatch = () => <p>Page Not Found</p>;
 
+const App = props => (
+  <div>
+    <div className="header">
+      <h1>Issue Tracker</h1>
+    </div>
+    <div className="contents">
+      {props.children}
+    </div>
+    <div className="footer">
+      Full source code available at this <a href="https://github.com/vasansr/pro-mern-stack">Github Repository</a>
+    </div>
+  </div>
+);
+
+App.propTypes = {
+  children: PropTypes.object.isRequired
+}
+
 const RouteApp = () => (
-  <HashRouter>
+  <Router history={createBrowserHistory()}>
     <Switch>
-      <Route path="/issues" exact component={IssueList} />
-      <Route path="/issues/:id" exact component={IssueEdit} />
-      <Route path="*" component={NoMatch} />
-      <Redirect from="/" to="/issues" />
+      {/* Have to place exact attr for parent route */}
+      <Route path="/">
+        <App>
+          <Switch>
+            <Route path="/issues" exact component={IssueList} />
+            <Route path="/issues/:id" component={IssueEdit} />
+            <Route path="*" component={NoMatch} />
+          </Switch>
+          <Redirect from="/" to="/issues" />
+        </App>
+      </Route>
     </Switch>
-  </HashRouter>
+  </Router>
 )
 
 ReactDOM.render(<RouteApp />, document.getElementById('contents'));
